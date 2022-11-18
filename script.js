@@ -22,6 +22,10 @@ var thinCoef = 1;
 var f;
 var ambientSound1;
 
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+  }
+
 function setup() {
     frameRate(30);
     //fullscreen(); 
@@ -36,7 +40,7 @@ function setup() {
         loopLength;
     incBarX = displayWidth / ((timeToTravelX * 30) / 1000);
     incBarY = displayHeight / ((timeToTravelY * 30) / 1000);
-    ambientSound1 = new Audio("ambientSound1.mp3");
+    ambientSound1 = new Howl({src: ["ambientSound1.mp3"]})
     ambientSound1.play();
     //ambientSound1.loop();
     //ambientSound1.amp(amp); //inicializar timeline -----//-----//-----
@@ -59,7 +63,7 @@ function setup() {
         (1 / 2) * PI
     );
     peixes[1] = new Peixe(
-        0,
+        1,
         "peixinho2.png",
         "som4.mp3",
         "som5.mp3",
@@ -143,201 +147,3 @@ function cleanTimeline() {
         }
     }
 }
-
-// ------------------------------------------ Peixe ------------------------------------------
-class Peixe {
-  img;
-  sounds = new Array(3);
-  id;
-  lastClick;
-  x;
-  y;
-  size;
-  reactSize;
-  phase;
-  constructor(id, img, sound1, sound2, sound3, x, y, size, phase) {
-      this.id = id;
-      this.img = loadImage(img);
-      this.x = x;
-      this.y = y;
-      this.phase = phase;
-      this.size = createCanvas;
-      this.reactSize = createCanvas;
-      this.sounds[0] = new Audio(sound1);
-      this.sounds[1] = new Audio(sound2);
-      this.sounds[2] = new Audio(sound3);
-      this.lastClick = -1;
-  }
-  draw() {
-      this.phase += 0.01;
-      this.x = displayWidth / 2 + 500 * sin(this.phase);
-      if (this.reactSize > this.size) {
-          this.reactSize -= 2;
-          image(this.img, this.x, this.y, this.reactSize, this.reactSize);
-          imageMode(CENTER);
-      } else {
-          image(this.img, this.x, this.y, this.size, this.size);
-          imageMode(CENTER);
-      }
-      if (
-          !(
-              mouseX < this.x - this.size / 2 ||
-              mouseX > this.x + this.size / 2 ||
-              mouseY < this.y - this.size / 2 ||
-              mouseY > this.y + this.size / 2
-          ) &&
-          mouseIsPressed
-      ) {
-          mouseIsPressed = false;
-          this.playAndRecord();
-          this.react();
-      }
-  }
-  react() {
-      this.reactSize = this.size * 1.1;
-  }
-  playAndRecord() {
-      this.lastClick = int(random(3));
-      this.sounds[this.lastClick].play();
-  }
-  playSound(index) {
-      this.sounds[index].play();
-  }
-}
-
-
-// ------------------------------------------ Boia ------------------------------------------
-class Boia {
-  imgBoia;
-  imgButtons;
-  x;
-  y;
-  size1;
-  size2;
-  reactSize;
-  ang = 1;
-  opa1 = 1;
-  opa2 = 0;
-  raioPulsar = 0;
-  opened = false;
-  sound = new Audio("bubble.mp3");
-  delete = new Audio("bubbleDelete.mp3");
-  constructor(imgBoia, imgButtons, x, y, size1, size2) {
-      this.imgBoia = loadImage(imgBoia);
-      this.imgButtons = loadImage(imgButtons);
-      this.x = x;
-      this.y = y;
-      this.size1 = size1;
-      this.size2 = size2;
-  }
-  draw() {
-      //menu
-      if (this.opened) {
-          if (this.opa2 < 255) this.opa2++;
-          push();
-          translate(this.x, this.y);
-          rotate(radians((PI / 2.0) * this.ang));
-          image(this.imgButtons, 0, 0, this.size2, this.size2);
-          imageMode(CENTER);
-          translate(-this.x, -this.y);
-          pop();
-          if (
-              mouseX < this.x + this.size2 / 2 &&
-              mouseX > this.x - this.size2 / 2 &&
-              mouseY < this.y + this.size2 / 2 &&
-              mouseY > this.y - this.size2 / 2 &&
-              mouseIsPressed
-          ) {
-              if (
-                  mouseX < this.x - this.size1 / 2 ||
-                  mouseX > this.x + this.size1 / 2 ||
-                  mouseY < this.y - this.size1 / 2 ||
-                  mouseY > this.y + this.size1 / 2
-              ) {
-                  this.delete.amp(1);
-                  this.delete.play();
-                  cleanTimeline();
-                  colorBar = 0;
-                  thinCoef = 2;
-                  mouseIsPressed = false;
-              }
-          }
-      }
-      if (
-          !(
-              mouseX < this.x - this.size1 / 2 ||
-              mouseX > this.x + this.size1 / 2 ||
-              mouseY < this.y - this.size1 / 2 ||
-              mouseY > this.y + this.size1 / 2
-          ) &&
-          mouseIsPressed
-      ) {
-          this.react();
-          this.sound.amp(1);
-          this.sound.play();
-          mouseIsPressed = false;
-          this.opened = !this.opened;
-      }
-      if (this.opa2 > 0) this.opa2--; //boia
-      push();
-      translate(this.x, this.y);
-      rotate(radians((PI / 2.0) * this.ang));
-      if (this.reactSize > this.size1) {
-          this.reactSize -= 2;
-          image(this.imgBoia, 0, 0, this.reactSize, this.reactSize);
-      } else image(this.imgBoia, 0, 0, this.size1, this.size1);
-      imageMode(CENTER);
-      translate(-this.x, -this.y);
-      pop(); //pulso
-      this.ang += 0.2;
-      if (this.raioPulsar < 50) {
-          this.opa1 = (255 - (255 * this.raioPulsar) / 50) * 2;
-          this.raioPulsar += 2;
-      } else this.raioPulsar = 0;
-      noFill();
-      stroke(255, 255, 255, this.opa1);
-      strokeWeight(6);
-      circle(this.x, this.y, this.raioPulsar);
-  }
-  react() {
-      this.reactSize = this.size1 * 1.1;
-  }
-}
-
-// ------------------------------------------ Timeline ------------------------------------------
-function drawTimeline() {
-  fill(255, colorBar, colorBar);
-  noStroke();
-  if (invertX == 0 && invertY == 0) {
-      rect(0, 0, xBar, thiness);
-      xBar += incBarX;
-      if (xBar >= displayWidth) invertX = 1;
-  } else if (invertX == 1 && invertY == 0) {
-      rect(0, 0, displayWidth, thiness);
-      rect(displayWidth - thiness, 0, thiness, yBar);
-      yBar += incBarY;
-      if (yBar >= displayHeight) invertY = 1;
-  } else if (invertX == 1 && invertY == 1) {
-      if (xBar > 0) xBar = 0;
-      rect(0, 0, displayWidth, thiness);
-      rect(displayWidth - thiness, 0, thiness, displayHeight);
-      rect(displayWidth - thiness, displayHeight - thiness, xBar, thiness);
-      xBar -= incBarX;
-      if (xBar <= -displayWidth) invertX = 0;
-  } else if (invertX == 0 && invertY == 1) {
-      if (yBar > 0) yBar = 0;
-      rect(0, 0, displayWidth, thiness);
-      rect(displayWidth - thiness, 0, thiness, displayHeight);
-      rect(0, displayHeight - thiness, displayWidth, thiness);
-      rect(0, displayHeight - thiness, thiness, yBar);
-      yBar -= incBarY;
-      if (yBar <= -displayHeight) {
-          invertY = 0;
-          xBar = 0;
-          yBar = 0;
-          goodToDraw = false;
-      }
-  }
-}
-
-
