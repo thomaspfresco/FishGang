@@ -1,35 +1,36 @@
-// ------------------------------------------ Timeline ------------------------------------------
 function drawTimeline() {
-    fill(255, colorBar, colorBar);
-    noStroke();
-    if (invertX == 0 && invertY == 0) {
-        rect(0, 0, xBar, thiness);
-        xBar += incBarX;
-        if (xBar >= displayWidth) invertX = 1;
-    } else if (invertX == 1 && invertY == 0) {
-        rect(0, 0, displayWidth, thiness);
-        rect(displayWidth - thiness, 0, thiness, yBar);
-        yBar += incBarY;
-        if (yBar >= displayHeight) invertY = 1;
-    } else if (invertX == 1 && invertY == 1) {
-        if (xBar > 0) xBar = 0;
-        rect(0, 0, displayWidth, thiness);
-        rect(displayWidth - thiness, 0, thiness, displayHeight);
-        rect(displayWidth - thiness, displayHeight - thiness, xBar, thiness);
-        xBar -= incBarX;
-        if (xBar <= -displayWidth) invertX = 0;
-    } else if (invertX == 0 && invertY == 1) {
-        if (yBar > 0) yBar = 0;
-        rect(0, 0, displayWidth, thiness);
-        rect(displayWidth - thiness, 0, thiness, displayHeight);
-        rect(0, displayHeight - thiness, displayWidth, thiness);
-        rect(0, displayHeight - thiness, thiness, yBar);
-        yBar -= incBarY;
-        if (yBar <= -displayHeight) {
-            invertY = 0;
-            xBar = 0;
-            yBar = 0;
-            goodToDraw = false;
+    noFill();
+    strokeCap(SQUARE);
+    strokeWeight(thiness*2);
+    stroke(0,0,0,25);
+    arc(displayWidth/2,displayHeight/2,timelineRaio,timelineRaio,0,2*PI);
+    stroke(255,colorBar,colorBar);
+    arc(displayWidth/2,displayHeight/2,timelineRaio,timelineRaio,-PI/2,angTimeline);
+
+    if (timelineRaio > displayHeight/5) timelineRaio-=1.5;
+    if (colorBar < 255) colorBar+=9;
+
+    //marcar notas
+    for (let i = 0; i < nSlots; i++) {
+        for (let j = 0; j < nPeixes; j++) {
+            if (timeline[i][j] != -1) {
+                noFill();
+                stroke(255,0,0)
+                strokeCap(SQUARE);
+                strokeWeight(thiness*2);
+                if (j == 0) stroke(0,0,0);
+                else stroke(255,125,0);
+                arc(displayWidth/2,displayHeight/2,timelineRaio,timelineRaio,i*2*PI/nSlots,i*2*PI/nSlots+2*PI/nSlots/2);
+                break;
+            }
         }
     }
-  }
+}
+
+function cleanTimeline() {
+    for (let i = 0; i < nSlots; i++) {
+        for (let j = 0; j < nPeixes; j++) {
+            timeline[i][j] = -1;
+        }
+    }
+}
