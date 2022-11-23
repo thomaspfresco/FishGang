@@ -60,31 +60,31 @@ function setup() {
     
     //inicializar peixes mar-----//-----//-----
     peixesMar = new Array(nPeixes);
-    peixesMar[0] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 8,[0,0,0],"mar");
-    peixesMar[1] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 6,[255,125,0],"mar");
-    peixesMar[2] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0],"mar");
-    peixesMar[3] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255],"mar");
-    peixesMar[4] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0],"mar");
+    peixesMar[0] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 8,[0,0,0]);
+    peixesMar[1] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 6,[255,125,0]);
+    peixesMar[2] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0]);
+    peixesMar[3] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255]);
+    peixesMar[4] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0]);
 
-    peixesMar[5] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0],"mar");
-    peixesMar[6] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 5,[255,125,0],"mar");
-    peixesMar[7] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 9,[255,255,0],"mar");
-    peixesMar[8] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 7,[0,0,255],"mar");
-    peixesMar[9] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 5,[255,50,0],"mar");
+    peixesMar[5] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0]);
+    peixesMar[6] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 5,[255,125,0]);
+    peixesMar[7] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 9,[255,255,0]);
+    peixesMar[8] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 7,[0,0,255]);
+    peixesMar[9] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 5,[255,50,0]);
     
     //inicializar peixes rio-----//-----//-----
     peixesRio = new Array(nPeixes);
-    peixesRio[0] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0],"rio");
-    peixesRio[1] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 6,[255,125,0],"rio");
-    peixesRio[2] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0],"rio");
-    peixesRio[3] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255],"rio");
-    peixesRio[4] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0],"rio");
+    peixesRio[0] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0]);
+    peixesRio[1] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 6,[255,125,0]);
+    peixesRio[2] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0]);
+    peixesRio[3] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255]);
+    peixesRio[4] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0]);
 
-    peixesRio[5] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0],"rio");
-    peixesRio[6] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 5,[255,125,0],"rio");
-    peixesRio[7] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0],"rio");
-    peixesRio[8] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255],"rio");
-    peixesRio[9] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0],"rio");
+    peixesRio[5] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0]);
+    peixesRio[6] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 5,[255,125,0]);
+    peixesRio[7] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0]);
+    peixesRio[8] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255]);
+    peixesRio[9] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0]);
     
 
     //criacao da boia -----//-----//-----
@@ -105,7 +105,6 @@ function draw() {
 
     if (cenario == 1) {
         peixes = peixesMar;
-       // tint(255, 50);
         image(bg1, displayWidth/2, displayHeight/2, displayWidth, displayHeight);
         background(0, 0, 80, 175);
         //tint(255, 255);
@@ -123,7 +122,7 @@ function draw() {
 
      //desenhar peixes
      for (let i = 0; i < nPeixes; i++) {
-        if((peixes[i].cenario == "mar" && cenario == 1) || (peixes[i].cenario == "rio" && cenario == 2))peixes[i].draw();
+       peixes[i].draw();
     }
     if (instant - interClock >= loopLength / nSlots) {
 

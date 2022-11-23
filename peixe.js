@@ -15,15 +15,13 @@ class Peixe {
     interval;
     color;
 
-    cenario;
-
     position;
     velocity;
     angle = int(random(1,360));
 
     margin;
 
-    constructor(img, sound1, sound2, sound3, size,color,cenario) {
+    constructor(img, sound1, sound2, sound3, size,color) {
         this.img = loadImage(img);
         this.size = size;
         this.sizeAux = size;
@@ -32,8 +30,6 @@ class Peixe {
         this.sounds[2] = new Howl({ src: [sound3], volume: 0.7});
         this.lastClick = -1;
         this.color = color;
-
-        this.cenario = cenario;
 
         this.raioPulsar = this.size*2;
 
@@ -63,7 +59,7 @@ class Peixe {
 
         //comportament aleatorio
         if (this.instant-this.interval >= 0) {
-            this.interval = this.interval+int(random(1001,8001));
+            this.interval = this.instant+int(random(1001,8001));
             this.angle = int(random(1,360));
             this.calcVelocity(random(1, 1.5));
         }
@@ -73,17 +69,14 @@ class Peixe {
 
         if (this.sizeAux > this.size) this.sizeAux -= 2;
 
-        if((this.cenario == "mar" && cenario == 1) || (this.cenario == "rio" && cenario == 2)) {
         push();
         translate(this.x, this.y);
         rotate(radians(this.angle));
         image(this.img, 0, 0, this.sizeAux, this.sizeAux);
         pop();
         imageMode(CENTER);
-        }
 
-
-        if ((boia.opened == false && popupOpen == false)) {
+        if (boia.opened == false && popupOpen == false) {
             if (!(mouseX < this.x - this.size / 2 || mouseX > this.x + this.size / 2
                 || mouseY < this.y - this.size / 2 || mouseY > this.y + this.size / 2) 
                 && dist(displayWidth/2,displayHeight/2,this.x,this.y) > boia.size1
