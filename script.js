@@ -5,16 +5,12 @@ var loopLength; //em milissegundos
 var nSlots = 100; //número de slots possíveis
 var activeSlot = nSlots/4*3; //slot atual
 var colorBar = 255;
-var timeToTravelX, timeToTravelY; //tempo que a barra demora a percorrer os lados do ecrã
-var incBarX, incBarY; //incremento em pixeis da barra
-var xBar = 0, yBar = 0; //tamanho atual da barra
-var invertX = 0, invertY = 0; //auxiliares à construção da barra
 var timeline; //array da timeline
 var timelineRaio; //raio da timeline
 var peixesMar; //array peixes mar
 var peixesRio; //array peixes rio
 var peixes; //array peixes atual
-var nPeixes = 2; //numero de peixes por cenario
+var nPeixes = 10; //numero de peixes por cenario
 var boia; //identifica a boia
 
 var volumeMar = 1;
@@ -33,26 +29,23 @@ var ambientSoundRio;
 
 var angTimeline = 0;
 
+var bg1;
+
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
   }
 
 function setup() {
 
-    textFont(loadFont('Fonts/Gilroy-ExtraBold.otf'));
-    textSize(displayWidth/50);
-    textAlign(CENTER, CENTER);
+    bg1 = loadImage('Images/teste1.png');
+
+    light=loadFont('Fonts/Gilroy-Light.otf');
+    bold=loadFont('Fonts/Gilroy-ExtraBold.otf');
 
     frameRate(60); 
     createCanvas(windowWidth, windowHeight);
     background(175, 238, 238);
     noStroke();
-
-    timeToTravelX = (float(displayWidth) / (2 * displayWidth + 2 * displayHeight)) *loopLength;
-    timeToTravelY = (float(displayHeight) / (2 * displayWidth + 2 * displayHeight)) *loopLength;
-    
-    incBarX = displayWidth / ((timeToTravelX * 30) / 1000);
-    incBarY = displayHeight / ((timeToTravelY * 30) / 1000);
     
     ambientSoundMar = new Howl({src: ["Sounds/ambient1.mp3"],  autoplay: true, loop: true, volume: 0});
     ambientSoundRio = new Howl({src: ["Sounds/ambient2.mp3"],  autoplay: true, loop: true, volume: 0});
@@ -67,13 +60,31 @@ function setup() {
     
     //inicializar peixes mar-----//-----//-----
     peixesMar = new Array(nPeixes);
-    peixesMar[0] = new Peixe(0,"Images/peixinho1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayWidth / 2,200,displayHeight / 7,(1 / 2) * PI);
-    peixesMar[1] = new Peixe(1,"Images/peixinho2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayWidth / 2,displayHeight - 200,displayHeight / 6,(3 / 2) * PI);
+    peixesMar[0] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 8,[0,0,0],"mar");
+    peixesMar[1] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 6,[255,125,0],"mar");
+    peixesMar[2] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0],"mar");
+    peixesMar[3] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255],"mar");
+    peixesMar[4] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0],"mar");
+
+    peixesMar[5] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0],"mar");
+    peixesMar[6] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 5,[255,125,0],"mar");
+    peixesMar[7] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 9,[255,255,0],"mar");
+    peixesMar[8] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 7,[0,0,255],"mar");
+    peixesMar[9] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 5,[255,50,0],"mar");
     
     //inicializar peixes rio-----//-----//-----
     peixesRio = new Array(nPeixes);
-    peixesRio[0] = new Peixe(0,"Images/peixinho3.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayWidth / 2,200,displayHeight / 7,(1 / 2) * PI);
-    peixesRio[1] = new Peixe(1,"Images/peixinho2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayWidth / 2,displayHeight - 200,displayHeight / 6,(3 / 2) * PI);
+    peixesRio[0] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0],"rio");
+    peixesRio[1] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 6,[255,125,0],"rio");
+    peixesRio[2] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0],"rio");
+    peixesRio[3] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255],"rio");
+    peixesRio[4] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0],"rio");
+
+    peixesRio[5] = new Peixe("Images/p1.png","Sounds/p1_1.mp3","Sounds/p1_2.mp3","Sounds/p1_3.mp3",displayHeight / 7,[0,0,0],"rio");
+    peixesRio[6] = new Peixe("Images/p2.png","Sounds/p2_1.mp3","Sounds/p2_2.mp3","Sounds/p2_3.mp3",displayHeight / 5,[255,125,0],"rio");
+    peixesRio[7] = new Peixe("Images/p3.png","Sounds/p3_1.mp3","Sounds/p3_2.mp3","Sounds/p3_3.mp3",displayHeight / 8,[255,255,0],"rio");
+    peixesRio[8] = new Peixe("Images/p4.png","Sounds/p4_1.mp3","Sounds/p4_2.mp3","Sounds/p4_3.mp3",displayHeight / 6,[0,0,255],"rio");
+    peixesRio[9] = new Peixe("Images/p5.gif","Sounds/p5_1.mp3","Sounds/p5_2.mp3","Sounds/p5_3.mp3",displayHeight / 6,[255,50,0],"rio");
     
 
     //criacao da boia -----//-----//-----
@@ -81,15 +92,23 @@ function setup() {
 
     loopLength = boia.tempos[boia.indTempos]*1000;
     timelineRaio = displayHeight/5;
+
+    document.getElementById("email").style.width = displayWidth-2*displayWidth/4-displayHeight / 40*2;
+    document.getElementById("email").style.height = displayHeight / 20;
+    document.getElementById("email").style.left = displayWidth / 2-(displayWidth-2*displayWidth/4)/2+displayHeight / 40;
+    document.getElementById("email").style.top = displayHeight / 2-(displayHeight / 20)/2;
 }
 
 function draw() {
 
-    console.log(popupOpen);
+    console.log(boia.opened,popupOpen);
 
     if (cenario == 1) {
         peixes = peixesMar;
-        background(175, 238, 238);
+       // tint(255, 50);
+        image(bg1, displayWidth/2, displayHeight/2, displayWidth, displayHeight);
+        background(0, 0, 80, 175);
+        //tint(255, 255);
     }
     else {
         peixes = peixesRio;
@@ -104,10 +123,12 @@ function draw() {
 
      //desenhar peixes
      for (let i = 0; i < nPeixes; i++) {
-        peixes[i].draw();
+        if((peixes[i].cenario == "mar" && cenario == 1) || (peixes[i].cenario == "rio" && cenario == 2))peixes[i].draw();
     }
     if (instant - interClock >= loopLength / nSlots) {
+
         interClock = instant;
+
         for (let i = 0; i < nPeixes; i++) {
             //tocar o som caso esteja gravado no slot
             if (timeline[activeSlot][i] != -1) {

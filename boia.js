@@ -30,7 +30,7 @@ class Boia {
 
     sound = new Howl({ src: ["Sounds/bubble.mp3"] });
     delete = new Howl({ src: ["Sounds/bubbleDelete.mp3"] });
-    click = new Howl({ src: ["Sounds/click.mp3"] });
+    click = new Howl({ src: ["Sounds/click.mp3"], volume: 0.7});
 
     tempos = [5,15,30];
     indTempos = 0;
@@ -129,6 +129,9 @@ class Boia {
             rotate(-PI / 2);
             noStroke();
             fill(255,255,255);
+            textFont(bold);
+            textSize(displayWidth/50);
+            textAlign(CENTER, CENTER);
             text(this.tempos[this.indTempos]+"s", 0, 0);
             pop();
 
@@ -236,6 +239,7 @@ class Boia {
 
     saveHandle() {
         popupOpen = true;
+        this.opened = false;
         this.opaSave = 175;
         this.click.play();
     }
