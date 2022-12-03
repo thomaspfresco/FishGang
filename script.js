@@ -53,7 +53,7 @@ function setup() {
 
     frameRate(60); 
     createCanvas(windowWidth, windowHeight);
-    background(175, 238, 238);
+   //background(175, 238, 238);
     noStroke();
     
     ambientSoundMar = new Howl({src: ["Sounds/ambient1.mp3"],  autoplay: true, loop: true, volume: 0});

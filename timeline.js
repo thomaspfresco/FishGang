@@ -2,7 +2,7 @@ function drawTimeline() {
     noFill();
     strokeCap(SQUARE);
     strokeWeight(thiness*2);
-    stroke(0,0,0,100);
+    stroke(0,0,0,75);
     arc(displayWidth/2,displayHeight/2,timelineRaio,timelineRaio,0,2*PI);
     stroke(255,colorBar,colorBar);
     arc(displayWidth/2,displayHeight/2,timelineRaio,timelineRaio,-PI/2,angTimeline);
@@ -40,4 +40,13 @@ function cleanTimeline() {
             timeline[i][j] = -1;
         }
     }
+}
+
+function checkNotes() {
+    for (let i = 0; i < nSlots; i++) {
+        for (let j = 0; j < nPeixes; j++) {
+            if (timeline[i][j] != -1) return true;
+        }
+    }
+    return false;
 }
