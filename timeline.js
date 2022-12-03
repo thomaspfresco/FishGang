@@ -10,6 +10,15 @@ function drawTimeline() {
     if (timelineRaio > displayHeight/5) timelineRaio-=1.5;
     if (colorBar < 255) colorBar+=9;
 
+    if (boia.rec) {
+        fill(255, 0, 0,colorBar);
+        noStroke();
+        rect(0, 0, displayWidth, thiness);
+        rect(displayWidth - thiness, 0, thiness, displayHeight);
+        rect(0, displayHeight - thiness, displayWidth, thiness);
+        rect(0, 0, thiness, displayHeight);
+    }
+
     //marcar notas
     for (let i = 0; i < nSlots; i++) {
         for (let j = 0; j < nPeixes; j++) {

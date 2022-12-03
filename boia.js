@@ -19,7 +19,9 @@ class Boia {
     opaChange = 75;
     opaDelete = 75;
     opaSave = 75;
-    opaTime = 75;
+    opaRec = 75;
+
+    rec=false;
 
     raioPulsar = 0;
     opened = false;
@@ -31,9 +33,6 @@ class Boia {
     sound = new Howl({ src: ["Sounds/bubble.mp3"] });
     delete = new Howl({ src: ["Sounds/bubbleDelete.mp3"] });
     click = new Howl({ src: ["Sounds/click.mp3"], volume: 0.7});
-
-    tempos = [5,15,30];
-    indTempos = 0;
 
     saveIcon = loadImage("Icons/save.png");
     deleteIcon = loadImage("Icons/delete.png");
@@ -67,13 +66,13 @@ class Boia {
             arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, PI /2+PI/4, PI+PI/4);
             fill(255, 255, 255, this.opaChange);
             arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, PI+PI/4, 3*PI/2+PI/4);
-            fill(255, 255, 255, this.opaTime);
+            fill(255, 255, 255, this.opaRec);
             arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, 3*PI/2+PI/4, 2*PI+PI/4);
 
             if (this.opaChange > 75) this.opaChange-=5;
             if (this.opaDelete > 75) this.opaDelete-=5;
             if (this.opaSave > 75) this.opaSave-=5;
-            if (this.opaTime > 75) this.opaTime-=5;
+            if (this.opaRec > 75 && this.rec==false) this.opaRec-=5;
 
             noFill();
             strokeCap(SQUARE);
@@ -115,8 +114,8 @@ class Boia {
             push();
             translate(this.size4, 0);
             rotate(-PI / 2);
-            if (cenario == 1) image(this.rioIcon, 0, 0, displayHeight / 20, displayHeight / 20);
-            else image(this.marIcon, 0, 0, displayHeight / 20, displayHeight / 20);
+            if (cenario == 1) image(this.rioIcon, 0, 0, displayHeight / 12, displayHeight / 12);
+            else image(this.marIcon, 0, 0, displayHeight / 8, displayHeight / 8);
             pop();
 
             rotate(PI / 2);
@@ -127,12 +126,14 @@ class Boia {
             push();
             translate(this.size4, 0);
             rotate(-PI / 2);
-            noStroke();
-            fill(255,255,255);
-            textFont(bold);
-            textSize(displayWidth/50);
-            textAlign(CENTER, CENTER);
-            text(this.tempos[this.indTempos]+"s", 0, 0);
+            if (this.rec) {
+                noStroke();
+                fill(255,0,0);
+            }else {
+                noStroke();
+                fill(255,255,255);
+            }
+            circle(0,0,displayHeight / 25);
             pop();
 
             pop();
@@ -145,7 +146,7 @@ class Boia {
                 if ((auxY > 0 && auxX>0 && auxY>auxX) || (auxY>0 && auxX<0 && auxY>abs(auxX))) this.changeHandle();
                 if ((auxY>0 && auxX<0 && auxY<abs(auxX)) || (auxY<0 && auxX<0 && abs(auxY)<abs(auxX))) this.deleteHandle();
                 if ((auxY<0 && auxX<0 && abs(auxY)>abs(auxX)) || (auxY<0 && auxX>0 && abs(auxY)>auxX)) this.saveHandle();
-                if ((auxY<0 && auxX>0 && abs(auxY)<auxX) || (auxY > 0 && auxX>0 && auxY<auxX)) this.timeHandle();
+                if ((auxY<0 && auxX>0 && abs(auxY)<auxX) || (auxY > 0 && auxX>0 && auxY<auxX)) this.recHandle();
                 mouseIsPressed = false;
                 this.react2();
                 this.react3();
@@ -195,6 +196,13 @@ class Boia {
 
         drawTimeline(); 
 
+        //rec centro
+        /*if (this.rec == true && this.opened == false) {
+            noStroke();
+            fill(255,0,0);
+            circle(displayWidth/2,displayHeight/2,displayHeight/30);
+        }*/
+
         //delete animation
         if (this.deleteAnimation) {
             noStroke();
@@ -220,7 +228,7 @@ class Boia {
         this.sizeAux1 = this.size1 * 1.1;
         this.opaChange = 175;
         this.opaDelete = 175;
-        this.opaTime = 175;
+        this.opaRec = 175;
         this.opaSave = 175;
         timelineRaio = timelineRaio * 1.1;
     }
@@ -244,10 +252,10 @@ class Boia {
         this.click.play();
     }
     
-    timeHandle() {
-        this.opaTime = 175;
-        if (this.indTempos == 2) this.indTempos = 0;
-        else this.indTempos++;
+    recHandle() {
+        this.opaRec = 175;
+        if (this.rec == true) this.rec = false;
+        else this.rec = true;
         colorBar=0;
         this.click.play();
     }
