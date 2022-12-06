@@ -45,8 +45,12 @@ function windowResized() {
 
 function setup() {
 
-    bg1 = loadImage('Images/bg1.png');
-    bg2 = loadImage('Images/bg2.png');
+    //bg1 = loadImage('Images/bg1.png');
+    //bg2 = loadImage('Images/bg2.png');
+    
+    // Novas imagens
+    bg1 = loadImage('Images/1mar.png');
+    bg2 = loadImage('Images/1rio.png');
 
     light=loadFont('Fonts/Gilroy-Light.otf');
     bold=loadFont('Fonts/Gilroy-ExtraBold.otf');
