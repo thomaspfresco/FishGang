@@ -58,21 +58,12 @@ function windowResized() {
 
 function setup() {
 
-<<<<<<< Updated upstream
-    //bg1 = loadImage('Images/bg1.png');
-    //bg2 = loadImage('Images/bg2.png');
-    
-    // Novas imagens
-    bg1 = loadImage('Images/1mar.png');
-    bg2 = loadImage('Images/1rio.png');
-=======
     recorder = new p5.SoundRecorder();
     soundFile = new p5.SoundFile();
     gravacao = new p5.SoundFile();
 
     bg1 = loadImage('Images/bg1.png');
     bg2 = loadImage('Images/bg2.png');
->>>>>>> Stashed changes
 
     light=loadFont('Fonts/Gilroy-Light.otf');
     bold=loadFont('Fonts/Gilroy-ExtraBold.otf');
@@ -278,15 +269,3 @@ function draw() {
     //popup
     if(popupOpen) popup();
 }
-<<<<<<< Updated upstream
-=======
-
-/*function blobToFile(theBlob, fileName){
-    //A Blob() is almost a File() - it's just missing the two properties below which we will add
-    theBlob.lastModifiedDate = new Date();
-    theBlob.name = fileName;
-    console.log(theBlob);
-    new File(theBlob, "sound.wav");
-    //return theBlob;
-}*/
->>>>>>> Stashed changes
