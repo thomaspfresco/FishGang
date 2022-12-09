@@ -2,45 +2,39 @@ function popup() {
     fill(0, 0, 0, 200);
     noStroke();
     rect(0, 0, displayWidth, displayHeight);
-    fill(255,255,255,75);
-    rect(displayWidth/4,displayHeight/2.65,displayWidth-2*displayWidth/4,displayHeight-2*displayHeight/2.65,5,5,5,5);
+    fill(255, 255, 255, 75);
+    rect(displayWidth / 4, displayHeight / 2.65, displayWidth - 2 * displayWidth / 4, displayHeight - 2 * displayHeight / 2.65, 5, 5, 5, 5);
 
-    fill(255,255,255);
+    // Titulo
+    fill(255, 255, 255);
     textFont(bold);
-    textSize(displayWidth/50);
+    textSize(displayWidth / 50);
     textAlign(RIGHT, CENTER);
-    text("Guarda a tua música", displayWidth-2*displayWidth/4-displayHeight / 40*2,displayHeight / 2-(displayHeight / 17));
+    text("Guarda a tua música", displayWidth - 2 * displayWidth / 4 - displayHeight / 40 * 2, displayHeight / 2 - (displayHeight / 17));
 
-    //botao
-    stroke(255,255,255);
-    strokeWeight(2);
-    noFill();
-    //fill(0,0,0);
-    rect(displayWidth/4+displayWidth-2*displayWidth/4-displayHeight / 40-displayWidth / 15,
-    displayHeight / 2+displayHeight / 40*2,
-    displayWidth / 15,displayHeight / 20,5,5,5,5);
 
+    // Botao fechar - X
     noStroke();
-    fill(255,255,255);
-    textFont(bold);
-    textSize(displayWidth/65);
-    textAlign(LEFT, CENTER);
-    text("Enviar", displayWidth/4+displayWidth-2*displayWidth/4-displayHeight / 40-displayWidth / 15+displayHeight / 40/1.4,
-    displayHeight / 2+displayHeight / 40*2.85);
-
-    noStroke();
-    fill(255,255,255);
+    fill(255, 255, 255);
     textFont("arial");
-    textSize(displayWidth/65);
+    textSize(displayWidth / 65);
     textAlign(LEFT, CENTER);
-    text("x", displayWidth/4,
-    displayHeight/4);
+    text("X", displayWidth / 4, displayHeight / 4);
 
+    // Espaco Email
     document.getElementById("email").style.display = "block";
+    var input = document.getElementById("email");
 
-    if ((mouseX < displayWidth/4 || mouseX > displayWidth/4+(displayWidth-2*displayWidth/4) ||
-    mouseY < displayHeight/4 || mouseY > displayHeight/4+(displayHeight-2*displayHeight/4)) && mouseIsPressed) {
+    // Botao enviar
+    document.getElementById("enviar").style.display = "block";
+    document.getElementById("enviar").style.left = displayWidth / 4 + displayWidth - 2 * displayWidth / 4 - displayHeight / 40 - displayWidth / 15 + displayHeight / 40 / 1.4;
+    document.getElementById("enviar").style.top = displayHeight / 2 + displayHeight / 40 * 2.85 - 4;
+
+    // Fechar a janela
+    if ((mouseX < displayWidth / 4 || mouseX > displayWidth / 4 + (displayWidth - 2 * displayWidth / 4) ||
+        mouseY < displayHeight / 4 || mouseY > displayHeight / 4 + (displayHeight - 2 * displayHeight / 4)) && mouseIsPressed) {
         document.getElementById("email").style.display = "none";
+        document.getElementById("enviar").style.display = "none";
         popupOpen = false;
     }
 }

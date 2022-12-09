@@ -43,7 +43,6 @@ class Peixe {
         this.sounds[0].setVolume(0.5);
         this.sounds[1].setVolume(0.5);
         this.sounds[2].setVolume(0.5);
-        //this.sounds[1] = new Howl({ src: [sound2], volume: 0.6 });
         this.lastClick = -1;
         this.color = color;
 
@@ -67,8 +66,8 @@ class Peixe {
 
         this.instant = millis();
 
-        this.vol = 1-mouseX/(displayWidth-this.size);
-        this.vol2 = mouseX/(displayWidth-this.size);
+        this.vol = 1 - mouseX / (displayWidth - this.size);
+        this.vol2 = mouseX / (displayWidth - this.size);
 
         //pulsar
         if (this.raioPulsar < this.size * 2) {
@@ -148,36 +147,19 @@ class Peixe {
             this.calcVelocity(random(0.1, 1.5));
         }
 
-        //console.log(random(0, 3));
-
-        /*for (let i = 0; i<nPeixes; i++) {
-            if((dist(peixes[i].x,peixes[i].y,this.x,this.y) < peixes[i].size/2
-            || dist(peixes[i].x,peixes[i].y,this.x,this.y) < this.size/2) 
-            && this.x!=peixes[i].x && this.y!=peixes[i].y){
-                this.angle = 180-this.angle;
-                peixes[i].angle = this.angle;
-                this.calcVelocity(int(random(1,4)));
-            }
-        }*/
-
-
-        /*if(dist(displayWidth/2,displayHeight/2,this.x,this.y) < boia.size1) {
-            this.angle = 180-this.angle;
-            this.calcVelocity(int(random(1,3)));
-        }*/
 
         this.position.add(this.velocity);
     }
 
     rasto() {
         //fill(this.color[0],this.color[1],this.color[2],100);
-        stroke(this.color[0],this.color[1],this.color[2]);
-        strokeWeight(this.size/10);
+        stroke(this.color[0], this.color[1], this.color[2]);
+        strokeWeight(this.size / 10);
         strokeCap(ROUND);
         if (this.rastos.length > 0) {
-        for (let i = 1; i<this.rastos.length; i++) {
-            line(this.rastos[i][0], this.rastos[i][1], this.rastos[i-1][0], this.rastos[i-1][1]);
-        }
+            for (let i = 1; i < this.rastos.length; i++) {
+                line(this.rastos[i][0], this.rastos[i][1], this.rastos[i - 1][0], this.rastos[i - 1][1]);
+            }
         }
     }
 
@@ -198,57 +180,51 @@ function mousePressed() {
 function mouseReleased() {
     for (let i = 0; i < nPeixes; i++) {
         if (peixes[i].dragged) {
-               peixes[i].position.x =peixes[i].x;
-               peixes[i].position.y =peixes[i].y;
-               peixes[i].clicked = false;
-               peixes[i].dragged = false;
-               peixes[i].rastos = [];
-               dragIndex = peixes[i].pIndex;
+            peixes[i].position.x = peixes[i].x;
+            peixes[i].position.y = peixes[i].y;
+            peixes[i].clicked = false;
+            peixes[i].dragged = false;
+            peixes[i].rastos = [];
+            dragIndex = peixes[i].pIndex;
         }
-        }
-    
+    }
+
 }
 
 function mouseDragged() {
     for (let i = 0; i < nPeixes; i++) {
         if (peixes[i].clicked) {
-            if (dist(mouseX, mouseY, peixes[i].x, peixes[i].y) > peixes[i].size/2 && peixes[i].dragged == false) {
+            if (dist(mouseX, mouseY, peixes[i].x, peixes[i].y) > peixes[i].size / 2 && peixes[i].dragged == false) {
                 peixes[i].x = mouseX;
                 peixes[i].y = mouseY;
                 peixes[i].dragged = true;
                 peixes[i].pIndex = int(random(3));
-                //peixes[i].playing = dragSound[peixes[i].pIndex].stop();
-                //peixes[i].playing2 = dragSound2[peixes[i].pIndex].stop();
                 dragSound[peixes[i].pIndex].stop();
                 dragSound2[peixes[i].pIndex].stop();
                 peixes[i].playing = dragSound[peixes[i].pIndex].play();
                 peixes[i].playing2 = dragSound2[peixes[i].pIndex].play();
             }
             else if (peixes[i].dragged) {
-
                 if(peixes[i].auxSlot != activeSlot) {
                     peixes[i].count+=1;
                     timeline[activeSlot][i][1]+=1;
                     peixes[i].auxSlot = activeSlot;
                     timeline[activeSlot][i][1] = peixes[i].count;
-                    //console.log(timeline[activeSlot][i][1]);
                     console.log(timeline[activeSlot][i]);
-                    //console.log(peixes[i].count);
                 }
 
-                if (mouseX > peixes[i].size/2 && mouseX < displayWidth-peixes[i].size/2
-                    && mouseY > peixes[i].size/2 && mouseY < displayHeight-peixes[i].size/2){
-                        peixes[i].x = mouseX;
-                        peixes[i].y = mouseY;
-                        peixes[i].rastos.push([mouseX,mouseY]);
-                        //dragSound[peixes[i].pIndex].rate(1+mouseX/displayWidth/2, peixes[i].playing);
-                        dragSound[peixes[i].pIndex].setVolume(peixes[i].vol);
-                        dragSound2[peixes[i].pIndex].setVolume(peixes[i].vol2);
+                if (mouseX > peixes[i].size / 2 && mouseX < displayWidth - peixes[i].size / 2
+                    && mouseY > peixes[i].size / 2 && mouseY < displayHeight - peixes[i].size / 2) {
 
-                        volumeDrag[peixes[i].pIndex] = peixes[i].vol;
-                        volumeDrag2[peixes[i].pIndex] = peixes[i].vol2;
-                        //console.log(1-mouseX/(displayWidth-peixes[i].size),mouseX/(displayWidth-peixes[i].size));
-                    }
+                    peixes[i].x = mouseX;
+                    peixes[i].y = mouseY;
+                    peixes[i].rastos.push([mouseX, mouseY]);
+                    dragSound[peixes[i].pIndex].setVolume(peixes[i].vol);
+                    dragSound2[peixes[i].pIndex].setVolume(peixes[i].vol2);
+
+                    volumeDrag[peixes[i].pIndex] = peixes[i].vol;
+                    volumeDrag2[peixes[i].pIndex] = peixes[i].vol2;
+                }
             }
         }
     }
