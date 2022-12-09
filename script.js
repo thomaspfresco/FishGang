@@ -60,8 +60,8 @@ function setup() {
     soundFile = new p5.SoundFile();
     gravacao = new p5.SoundFile();
 
-    bg1 = loadImage('Images/mar.png');
-    bg2 = loadImage('Images/rio.png');
+    bg1 = loadImage('Images/1mar.png');
+    bg2 = loadImage('Images/1rio.png');
 
     light = loadFont('Fonts/Gilroy-Light.otf');
     bold = loadFont('Fonts/Gilroy-ExtraBold.otf');
