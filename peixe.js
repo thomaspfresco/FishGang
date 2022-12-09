@@ -16,6 +16,8 @@ class Peixe {
     color;
     clicked = false;
     dragged = false;
+    auxSlot = 0;
+    count = 0;
 
     position;
     velocity;
@@ -35,9 +37,13 @@ class Peixe {
         this.img = loadImage(img);
         this.size = size;
         this.sizeAux = size;
-        this.sounds[0] = new Howl({ src: [sound1], volume: 0.6 });
-        this.sounds[1] = new Howl({ src: [sound2], volume: 0.6 });
-        this.sounds[2] = new Howl({ src: [sound3], volume: 0.6 });
+        this.sounds[0] = loadSound(sound1);
+        this.sounds[1] = loadSound(sound2);
+        this.sounds[2] = loadSound(sound3);
+        this.sounds[0].setVolume(0.5);
+        this.sounds[1].setVolume(0.5);
+        this.sounds[2].setVolume(0.5);
+        //this.sounds[1] = new Howl({ src: [sound2], volume: 0.6 });
         this.lastClick = -1;
         this.color = color;
 
@@ -56,6 +62,9 @@ class Peixe {
     }
 
     draw() {
+
+        if(this.click == false && this.dragged == false) this.pIndex = -1;
+
         this.instant = millis();
 
         this.vol = 1-mouseX/(displayWidth-this.size);
@@ -188,24 +197,13 @@ function mousePressed() {
 
 function mouseReleased() {
     for (let i = 0; i < nPeixes; i++) {
-        console.log(peixes[i].playing, peixes[i].playing2);
         if (peixes[i].dragged) {
                peixes[i].position.x =peixes[i].x;
                peixes[i].position.y =peixes[i].y;
                peixes[i].clicked = false;
                peixes[i].dragged = false;
                peixes[i].rastos = [];
-
-               dragSound[peixes[i].pIndex].fade(peixes[i].vol, 0, 1000, peixes[i].playing);
-               dragSound2[peixes[i].pIndex].fade(peixes[i].vol2, 0, 1000, peixes[i].playing2);
-
-               dragSound[peixes[i].pIndex].on('fade', function(){
-                dragSound[peixes[i].pIndex].stop();
-              });
-
-              dragSound2[peixes[i].pIndex].on('fade', function(){
-                dragSound2[peixes[i].pIndex].stop();
-              });
+               dragIndex = peixes[i].pIndex;
         }
         }
     
@@ -221,21 +219,45 @@ function mouseDragged() {
                 peixes[i].pIndex = int(random(3));
                 //peixes[i].playing = dragSound[peixes[i].pIndex].stop();
                 //peixes[i].playing2 = dragSound2[peixes[i].pIndex].stop();
+                dragSound[peixes[i].pIndex].stop();
+                dragSound2[peixes[i].pIndex].stop();
                 peixes[i].playing = dragSound[peixes[i].pIndex].play();
                 peixes[i].playing2 = dragSound2[peixes[i].pIndex].play();
             }
             else if (peixes[i].dragged) {
+
+                if(peixes[i].auxSlot != activeSlot) {
+                    peixes[i].count+=1;
+                    timeline[activeSlot][i][1]+=1;
+                    peixes[i].auxSlot = activeSlot;
+                    timeline[activeSlot][i][1] = peixes[i].count;
+                    //console.log(timeline[activeSlot][i][1]);
+                    console.log(timeline[activeSlot][i]);
+                    //console.log(peixes[i].count);
+                }
+
                 if (mouseX > peixes[i].size/2 && mouseX < displayWidth-peixes[i].size/2
                     && mouseY > peixes[i].size/2 && mouseY < displayHeight-peixes[i].size/2){
                         peixes[i].x = mouseX;
                         peixes[i].y = mouseY;
                         peixes[i].rastos.push([mouseX,mouseY]);
                         //dragSound[peixes[i].pIndex].rate(1+mouseX/displayWidth/2, peixes[i].playing);
-                        dragSound[peixes[i].pIndex].volume(peixes[i].vol);
-                        dragSound2[peixes[i].pIndex].volume(peixes[i].vol2);
+                        dragSound[peixes[i].pIndex].setVolume(peixes[i].vol);
+                        dragSound2[peixes[i].pIndex].setVolume(peixes[i].vol2);
+
+                        volumeDrag[peixes[i].pIndex] = peixes[i].vol;
+                        volumeDrag2[peixes[i].pIndex] = peixes[i].vol2;
                         //console.log(1-mouseX/(displayWidth-peixes[i].size),mouseX/(displayWidth-peixes[i].size));
                     }
             }
         }
     }
+}
+
+function checkClickAndDrag() {
+
+    for (let i = 0; i < nPeixes; i++) {
+        if (peixes[i].clicked && peixes[i].dragged) return true;
+    }
+    return false;
 }
