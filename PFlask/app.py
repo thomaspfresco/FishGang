@@ -10,9 +10,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.mime.base import MIMEBase
 from email import encoders
+
 app = Flask(__name__)
 CORS(app)
-
 
 @app.route("/", methods=['POST', 'GET'])
 def home():
@@ -31,7 +31,7 @@ def home():
     body = MIMEText(content, 'plain')
     msg.attach(body)
 
-    ffilename = 'Ficheiro/mySound.wav'
+    filename = 'Ficheiro/mySound.wav'
 
     part = MIMEBase('application', "octet-stream")
     with open(filename, 'rb') as file:
@@ -39,7 +39,7 @@ def home():
     encoders.encode_base64(part)
     part.add_header('Content-Disposition', 'attachment; filename={}'.format(filename))
     msg.attach(part)
-
+    
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
 

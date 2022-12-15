@@ -59,14 +59,15 @@ class Boia {
 
     draw() {
 
-        if(this.timeoutShade) {if(this.opaTimeout < 100) this.opaTimeout+=6;}
-        else if(this.opaTimeout > 0) this.opaTimeout-=3;
+        if (this.timeoutShade) { if (this.opaTimeout < 100) this.opaTimeout += 6; }
+        else if (this.opaTimeout > 0) this.opaTimeout -= 3;
 
         //chamada de atenção
         fill(0, 0, 0, this.opaTimeout);
         noStroke();
         rect(0, 0, displayWidth, displayHeight);
-        //menu
+
+        // Menu
         if (this.opened) {
             this.timeout = instant;
             fill(0, 0, 0, 100);
@@ -74,15 +75,15 @@ class Boia {
             rect(0, 0, displayWidth, displayHeight);
 
             noStroke();
-           
+
             if (checkNotes()) {
                 fill(255, 255, 255, this.opaSave);
                 arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, 0 + PI / 4, PI / 2 + PI / 4);
-                
+
                 fill(255, 255, 255, this.opaDelete);
                 arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, PI / 2 + PI / 4, PI + PI / 4);
             }
-            
+
             fill(255, 255, 255, this.opaChange);
             arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, PI + PI / 4, 3 * PI / 2 + PI / 4);
             fill(255, 255, 255, this.opaRec);
@@ -158,7 +159,7 @@ class Boia {
             pop();
 
             //botoes bloqueados
-            if (checkNotes() == false){
+            if (checkNotes() == false) {
                 fill(0, 0, 0, 75);
                 arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, 0 + PI / 4, PI / 2 + PI / 4);
                 arc(displayWidth / 2, displayHeight / 2, this.sizeAux2, this.sizeAux2, PI / 2 + PI / 4, PI + PI / 4);
@@ -194,21 +195,21 @@ class Boia {
             }
         }
 
-        if (instant >= this.timeout+loopLength*6-loopLength/nSlots*2) {
+        if (instant >= this.timeout + loopLength * 6 - loopLength / nSlots * 2) {
             this.timeoutShade = true;
         }
 
-        if (instant >= this.timeout+loopLength*6) {
+        if (instant >= this.timeout + loopLength * 6) {
             if (this.timeoutCheck) this.reactTimeout();
             this.timeoutCheck = false;
         }
 
-        if (instant >= this.timeout+loopLength*6+loopLength/nSlots*4) {
+        if (instant >= this.timeout + loopLength * 6 + loopLength / nSlots * 4) {
             this.reactTimeout();
             this.timeoutCheck = true;
         }
 
-        if (instant >= this.timeout+loopLength*6+loopLength/nSlots*6) {
+        if (instant >= this.timeout + loopLength * 6 + loopLength / nSlots * 6) {
             this.timeout = instant;
             this.timeoutShade = false;
         }
@@ -296,6 +297,7 @@ class Boia {
         this.size4 = displayHeight / 6.2 * 1.1;
     }
 
+    // Botao guardar audio
     saveHandle() {
         popupOpen = true;
         this.opened = false;
@@ -304,13 +306,10 @@ class Boia {
         this.react2();
         this.react3();
         this.react4();
-        //recorder.stop();
-        save(soundFile, 'mySound.wav');
-        //let auxiliar = soundFile.getBlob();
-        //blobToFile(soundFile.getBlob(), 'mySound.wav');
-        //console.log(auxiliar);
+        //save(soundFile, 'mySound.wav');         // aqui
     }
 
+    // Botao gravar audio
     recHandle() {
         this.opaRec = 175;
         if (this.rec == true) this.rec = false;
@@ -322,6 +321,7 @@ class Boia {
         this.react4();
     }
 
+    // Botao delete
     deleteHandle() {
         this.deleteAnimation = true;
         this.deleteRaio = this.sizeAux2;
@@ -335,6 +335,7 @@ class Boia {
         //this.opened = false;
     }
 
+    // Botao mudar cenario
     changeHandle() {
         this.opaChange = 175;
         this.react2();
@@ -343,5 +344,10 @@ class Boia {
         changeAnim = true;
         this.click.play();
         this.rec = false;
+    }
+
+    // Botao enviar email
+    sendEmailButton() {
+        this.click.play();
     }
 }

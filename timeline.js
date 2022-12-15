@@ -28,12 +28,12 @@ function drawTimeline() {
                 strokeWeight(thiness * 2);
                 stroke(peixes[j].color[0], peixes[j].color[1], peixes[j].color[2]);
 
-                let aux = timeline[i][j][1];
-                if (aux != -1) {
+                //let aux = timeline[i][j][1];
+                /*if (aux != -1) {
                     console.log("ai");
-                    arc(displayWidth/2,displayHeight/2,timelineRaio,timelineRaio,i*2*PI/nSlots,i*2*PI/nSlots + 2*PI/nSlots*timeline[i][j][1]);
-                }
-                else arc(displayWidth/2,displayHeight/2,timelineRaio,timelineRaio,i*2*PI/nSlots,i*2*PI/nSlots+2*PI/nSlots/2);
+                    arc(displayWidth / 2, displayHeight / 2, timelineRaio, timelineRaio, i * 2 * PI / nSlots, i * 2 * PI / nSlots + 2 * PI / nSlots * timeline[i][j][1]);
+                }*/
+                arc(displayWidth / 2, displayHeight / 2, timelineRaio, timelineRaio, i * 2 * PI / nSlots, i * 2 * PI / nSlots + 2 * PI / nSlots / 2);
                 break;
             }
         }

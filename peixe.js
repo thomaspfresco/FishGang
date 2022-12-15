@@ -205,13 +205,13 @@ function mouseDragged() {
                 peixes[i].playing2 = dragSound2[peixes[i].pIndex].play();
             }
             else if (peixes[i].dragged) {
-                if(peixes[i].auxSlot != activeSlot) {
-                    peixes[i].count+=1;
-                    timeline[activeSlot][i][1]+=1;
-                    peixes[i].auxSlot = activeSlot;
-                    timeline[activeSlot][i][1] = peixes[i].count;
-                    console.log(timeline[activeSlot][i]);
-                }
+                // if(peixes[i].auxSlot != activeSlot) {
+                //     peixes[i].count+=1;
+                //     timeline[activeSlot][i][1]+=1;
+                //     peixes[i].auxSlot = activeSlot;
+                //     timeline[activeSlot][i][1] = peixes[i].count;
+                //     console.log(timeline[activeSlot][i]);
+                // }
 
                 if (mouseX > peixes[i].size / 2 && mouseX < displayWidth - peixes[i].size / 2
                     && mouseY > peixes[i].size / 2 && mouseY < displayHeight - peixes[i].size / 2) {
